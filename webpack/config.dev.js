@@ -22,14 +22,14 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    // new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(rootPath, 'client/index.html'),
       filename: 'index.html',
       inject: 'body'
     }),
     new webpack.DefinePlugin({
-      '__NODE_ENV__': JSON.stringify(config.NODE_ENV),
+      '__DEV_MODE__': JSON.stringify(config.DEV_MODE),
       '__API_SERVER__': JSON.stringify(config.API_SERVER)
     })
   ],

@@ -30,6 +30,7 @@ app.use(require('webpack-hot-middleware')(compiler))
 
 app.use('*', function(req, res, next) {
   // res.sendFile(path.join(__dirname, '../client/index.html'))
+  // refer: https://github.com/ampedandwired/html-webpack-plugin/issues/145
   var filename = path.join(compiler.outputPath, 'index.html');
   compiler.outputFileSystem.readFile(filename, function(err, result){
     if (err) {
