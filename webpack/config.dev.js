@@ -41,7 +41,23 @@ const webpackConfig = {
       include: path.join(rootPath, 'client')
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      loaders: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+      ]
+    }, {
+      test: /\.less$/,
+      loaders: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        'less-loader'
+      ]
+    }, {
+      test: /\.png$/,
+      loader: "url-loader?limit=100000"
+    }, {
+      test: /\.jpg$/,
+      loader: "file-loader"
     }]
   },
   resolve: {

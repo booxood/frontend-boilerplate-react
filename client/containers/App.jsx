@@ -2,34 +2,27 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { routeActions } from 'react-router-redux'
+import { Link } from 'react-router'
 
-import * as TodoActions from '../actions/todos'
-
-import style from './App.css'
+import style from './App.less'
 
 class App extends Component {
-  addTodo() {
-    this.props.actions.addTodo('action add ' + Math.random())
-  }
-
-  goAbout() {
-    this.props.routeActions.push('/about')
+  goTo(url) {
+    this.props.routeActions.push(url)
   }
 
   render() {
-    const { todos, actions, children } = this.props
+    const { children } = this.props
     return (
-      <div className={style.normal}>
-        <section className={style.main}>
-          <ul className={style.ul}>
-            {todos.map(todo =>
-              <li key={todo.id}><label>{todo.id} - {todo.text}</label></li>
-            )}
+      <div className={style.main}>
+        <h1>Frontend Boilerplate React</h1>
+        <div className={style.navbar}>
+          <ul>
+            <li onClick={this.goTo.bind(this, '/todos')}>Todos</li>
+            <li onClick={this.goTo.bind(this, '/login')}>Login</li>
+            <li><Link to="/about/hello" activeClassName={style.active} activeStyle={{ color: 'red' }} >About</Link></li>
           </ul>
-        </section>
-        <button onClick={::this.addTodo}>Add Todo</button>
-        <br></br>
-        <button onClick={::this.goAbout}>Go About</button>
+        </div>
 
         {children}
       </div>
@@ -45,7 +38,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(TodoActions, dispatch),
     routeActions: bindActionCreators(routeActions, dispatch),
     dispatch: dispatch
   }
